@@ -3,10 +3,10 @@ const router = express.Router();
 
 const controller = require("../controllers/sneakers");
 
-const { getAllSneakers, getSneakerHistory } = controller;
+const { getAllSneakers, getSneakerHistory, insertSneakersHistory } = controller;
 
 router.route("/").get(getAllSneakers);
 
-router.route("/history").get(getSneakerHistory);
+router.route("/history").get(getSneakerHistory).post(insertSneakersHistory);
 
 module.exports = router;
