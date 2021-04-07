@@ -1,4 +1,5 @@
 const express = require("express");
+require("dotenv").config();
 
 const PORT = 5000 || process.env.PORT;
 const sneakers = require("./routes/sneakers");
