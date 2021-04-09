@@ -15,7 +15,7 @@ const getAllSneakers = async (req, res, next) => {
 
 const getCart = async (req, res, next) => {
   console.log("Fetching data ...");
-  const result = await db.query("SELECT * FROM history");
+  const result = await db.query("SELECT * FROM cart");
 
   res.status(200).json({
     status: 200,
@@ -34,7 +34,7 @@ const insertIntoCart = async (req, res, next) => {
   ]);
 
   const result = await db.query(
-    "INSERT INTO history (id, name, price, img) VALUES ($1, $2, $3, $4) RETURNING *",
+    "INSERT INTO cart (id, name, price, img) VALUES ($1, $2, $3, $4) RETURNING *",
     [id, onePair.rows[0].name, onePair.rows[0].price, onePair.rows[0].img]
   );
 
@@ -47,7 +47,7 @@ const insertIntoCart = async (req, res, next) => {
 };
 
 const deleteCart = async (req, res, next) => {
-  await db.query("DELETE FROM history");
+  await db.query("DELETE FROM cart");
 
   res.status(200).json({
     status: 200,
