@@ -3,10 +3,12 @@ const router = express.Router();
 
 const controller = require("../controllers/sneakers");
 
-const { getAllSneakers, getSneakerHistory, insertSneakersHistory } = controller;
+const { getAllSneakers, getCart, insertIntoCart, deleteCart } = controller;
 
 router.route("/").get(getAllSneakers);
 
-router.route("/history").get(getSneakerHistory).post(insertSneakersHistory);
+router.route("/cart").get(getCart);
+router.route("/cart/:id").post(insertIntoCart);
+router.route("/deleteCart").delete(deleteCart);
 
 module.exports = router;
