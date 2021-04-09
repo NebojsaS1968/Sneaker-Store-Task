@@ -13,7 +13,7 @@ const getAllSneakers = async (req, res, next) => {
   });
 };
 
-const getSneakerHistory = async (req, res, next) => {
+const getCart = async (req, res, next) => {
   console.log("Fetching data ...");
   const result = await db.query("SELECT * FROM history");
 
@@ -26,13 +26,16 @@ const getSneakerHistory = async (req, res, next) => {
   });
 };
 
-const insertSneakersHistory = async (req, res, next) => {
-  const name = req.body.name;
-  const price = req.body.price;
+const insertIntoCart = async (req, res, next) => {
+  const { id } = req.params;
+
+  const onePair = await db.query("SELECT * FROM all_sneakers WHERE id = $1", [
+    id,
+  ]);
 
   const result = await db.query(
-    "INSERT INTO history (id, name, price) VALUES ($1, $2) RETURNING *",
-    [name, price]
+    "INSERT INTO history (id, name, price, img) VALUES ($1, $2, $3, $4) RETURNING *",
+    [id, onePair.rows[0].name, onePair.rows[0].price, onePair.rows[0].img]
   );
 
   res.status(201).json({
@@ -43,8 +46,20 @@ const insertSneakersHistory = async (req, res, next) => {
   });
 };
 
+const deleteCart = async (req, res, next) => {
+  await db.query("DELETE FROM history");
+
+  res.status(200).json({
+    status: 200,
+    data: {
+      msg: "All the entries are deleted",
+    },
+  });
+};
+
 module.exports = {
   getAllSneakers,
-  getSneakerHistory,
-  insertSneakersHistory,
+  getCart,
+  insertIntoCart,
+  deleteCart,
 };
