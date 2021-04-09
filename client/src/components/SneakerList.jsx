@@ -20,7 +20,19 @@ const SneakerList = () => {
     fetchData();
   }, []);
 
-  return <div>Sneakers</div>;
+  return (
+    <div className="container d-flex flex-row">
+      {sneakers.map((sneaker) => {
+        return (
+          <div className="sneaker p-4" key={sneaker.id}>
+            <p>{sneaker.name}</p>
+            <p>{sneaker.price} din.</p>
+            <button className="btn btn-secondary">Add to cart</button>
+          </div>
+        );
+      })}
+    </div>
+  );
 };
 
 export default SneakerList;
