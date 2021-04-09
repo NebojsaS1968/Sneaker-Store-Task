@@ -4,7 +4,7 @@ import { SneakerContext } from "../context/SneakerContext";
 
 const SneakerList = () => {
   // destructuring values from context API using useContext hook
-  const { sneakers, setSneakers } = useContext(SneakerContext);
+  const { sneakers, setSneakers, cart, setCart } = useContext(SneakerContext);
 
   // useEffect hook is for fetching the data from the server as soon as the component mount on to the screen
   useEffect(() => {
@@ -20,6 +20,20 @@ const SneakerList = () => {
     fetchData();
   }, []);
 
+  const postIntoHistory = async (id) => {
+    try {
+      const response = await SneakerAPI.post(`/cart/${id}`);
+      console.log(response);
+      setCart(response.data.data.new_history);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleAddToCart = async (id) => {
+    postIntoHistory(id);
+  };
+
   return (
     <div className="container d-flex flex-row">
       {sneakers.map((sneaker) => {
@@ -28,7 +42,12 @@ const SneakerList = () => {
             <img src={sneaker.img} alt="" />
             <p>{sneaker.name}</p>
             <p>{sneaker.price} din.</p>
-            <button className="btn btn-secondary">Add to cart</button>
+            <button
+              onClick={() => handleAddToCart(sneaker.id)}
+              className="btn btn-secondary"
+            >
+              Add to cart
+            </button>
           </div>
         );
       })}
