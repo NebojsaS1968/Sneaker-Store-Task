@@ -25,6 +25,7 @@ const SneakerList = () => {
       {sneakers.map((sneaker) => {
         return (
           <div className="sneaker p-4" key={sneaker.id}>
+            <img src={sneaker.img} alt="" />
             <p>{sneaker.name}</p>
             <p>{sneaker.price} din.</p>
             <button className="btn btn-secondary">Add to cart</button>
