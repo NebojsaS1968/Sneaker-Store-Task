@@ -7,12 +7,13 @@ import { SneakerContext } from "../context/SneakerContext";
 const UserCheckout = () => {
   const history = useHistory();
 
-  const { cart, setCart } = useContext(SneakerContext);
+  const { cart, setCart, setCartSize } = useContext(SneakerContext);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await SneakerAPI.get("/cart");
+        setCartSize(response.data.data.sneakers_history.length);
         setCart(response.data.data.sneakers_history);
       } catch (err) {
         console.log(err);
@@ -35,6 +36,7 @@ const UserCheckout = () => {
     e.preventDefault();
     try {
       await SneakerAPI.delete("/deleteCart");
+      setCartSize(0);
     } catch (err) {
       console.log(err);
     }
