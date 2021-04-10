@@ -5,7 +5,11 @@ export const SneakerContext = createContext();
 export const SneakerContextProvider = (props) => {
   const [sneakers, setSneakers] = useState([]);
   const [cart, setCart] = useState([]); // state for items in the cart
-  const [historyShop, setHistoryShop] = useState([]);
+  const [cartSize, setCartSize] = useState(0); // state for the number of the items in the cart
+
+  const increaseCart = () => {
+    setCartSize(cartSize + 1);
+  };
 
   return (
     <SneakerContext.Provider
@@ -14,8 +18,9 @@ export const SneakerContextProvider = (props) => {
         setSneakers,
         cart,
         setCart,
-        historyShop,
-        setHistoryShop,
+        cartSize,
+        setCartSize,
+        increaseCart,
       }}
     >
       {props.children}
