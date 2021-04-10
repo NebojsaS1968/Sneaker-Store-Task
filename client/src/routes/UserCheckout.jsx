@@ -7,7 +7,7 @@ import { SneakerContext } from "../context/SneakerContext";
 const UserCheckout = () => {
   const history = useHistory();
 
-  const { cart, setCart, setCartSize } = useContext(SneakerContext);
+  const { cart, setCart, setCartSize, finalPrice } = useContext(SneakerContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,15 +22,6 @@ const UserCheckout = () => {
 
     fetchData();
   }, []);
-
-  // Calculate the price
-  const finalPrice = () => {
-    let result = 0;
-    for (let i = 0; i < cart.length; i++) {
-      result = result + Number(cart[i].price);
-    }
-    return result;
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
