@@ -33,6 +33,12 @@ Checkout page:
 ./client/public/images/checkout/checkout.png
 ```
 
+History page:
+
+```
+./client/public/images/history/history.png
+```
+
 ## Technologies
 
 ### Server-side
