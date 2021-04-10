@@ -13,8 +13,8 @@ CREATE TABLE all_sneakers (
     img VARCHAR(200) NOT NULL
 );
 
--- creating table for history sneakers
-CREATE TABLE history (
+-- creating table for sneakers inside cart
+CREATE TABLE cart (
     id INT NOT NULL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     price BIGINT NOT NULL,
