@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
+import { SneakerContext } from "../context/SneakerContext";
 
 const Header = () => {
+  const { cartSize } = useContext(SneakerContext);
+
   return (
     <header>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -30,6 +33,7 @@ const Header = () => {
                   height="40"
                   alt="shopping"
                 ></img>
+                <p className="cartSize">{cartSize}</p>
               </a>
             </li>
             <li className="nav-item">
