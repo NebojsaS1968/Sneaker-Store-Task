@@ -1,8 +1,11 @@
 import React, { useEffect, useContext } from "react";
 import SneakerAPI from "../apis/SneakerAPI";
 import { SneakerContext } from "../context/SneakerContext";
+import { useHistory } from "react-router-dom";
 
 const SneakerList = () => {
+  let history = useHistory();
+
   // destructuring values from context API using useContext hook
   const {
     sneakers,
@@ -33,9 +36,9 @@ const SneakerList = () => {
       const response = await SneakerAPI.post(`/cart/${id}`);
       console.log(response);
       setOrderHistory(response.data.data.new_history);
-      localStorage.setItem("orderHistory", JSON.stringify(orderHistory));
       setCart(response.data.data.new_history); // new item in cart table
       increaseCart();
+      history.push("/history");
     } catch (err) {
       console.log(err);
     }

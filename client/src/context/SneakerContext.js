@@ -1,4 +1,4 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useEffect } from "react";
 
 export const SneakerContext = createContext();
 
@@ -6,7 +6,14 @@ export const SneakerContextProvider = (props) => {
   const [sneakers, setSneakers] = useState([]);
   const [cart, setCart] = useState([]); // state for items in the cart
   const [cartSize, setCartSize] = useState(0); // state for the number of the items in the cart
-  const [orderHistory, setOrderHistory] = useState([]); // state for items in history page
+  const [orderHistory, setOrderHistory] = useState([], () => {
+    const localData = localStorage.getItem("orderHistory");
+    return localData ? JSON.parse(localData) : [];
+  }); // state for items in history page
+
+  useEffect(() => {
+    localStorage.setItem("orderHistory", JSON.stringify(orderHistory));
+  }, [orderHistory]);
 
   const increaseCart = () => {
     setCartSize(cartSize + 1);
