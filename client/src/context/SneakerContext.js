@@ -5,7 +5,10 @@ export const SneakerContext = createContext();
 export const SneakerContextProvider = (props) => {
   const [sneakers, setSneakers] = useState([]);
   const [cart, setCart] = useState([]); // state for items in the cart
-  const [cartSize, setCartSize] = useState(0); // state for the number of the items in the cart
+  const [cartSize, setCartSize] = useState(0, () => {
+    const localCartData = localStorage.getItem("cartSize");
+    return localCartData ? JSON.parse(localCartData) : 0;
+  }); // state for the number of the items in the cart
   const [orderHistory, setOrderHistory] = useState([], () => {
     const localData = localStorage.getItem("orderHistory");
     return localData ? JSON.parse(localData) : [];
@@ -13,7 +16,8 @@ export const SneakerContextProvider = (props) => {
 
   useEffect(() => {
     localStorage.setItem("orderHistory", JSON.stringify(orderHistory));
-  }, [orderHistory]);
+    localStorage.setItem("cartSize", JSON.stringify(cartSize));
+  }, [orderHistory, cartSize]);
 
   const increaseCart = () => {
     setCartSize(cartSize + 1);
